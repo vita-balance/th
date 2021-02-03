@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="th">
+   <head>
+
+<script src="js/jquery.min_1.js"></script>
+
+    <script>
+    function set_validator_errors(){
+        orderValidator.errorTitle = 'โปรดแก้ไขข้อผิดพลาดต่อไปนี้'; 
+
+        orderValidator.errorNameField = 'ชื่อ'; 
+        orderValidator.errorNameMess = 'ใส่ชื่อของคุณ'; 
+        
+        orderValidator.errorPhoneField = 'หมายเลขโทรศัพท์'; 
+        orderValidator.errorPhoneMess = 'ป้อนหมายเลขโทรศัพท์ที่ถูกต้อง'; 
+        
+        orderValidator.errorAddress = 'ป้อนที่อยู่ที่ถูกต้อง'; 
+        orderValidator.errorRequired = 'ช่องที่ต้องกรอก'; 
+        orderValidator.errorMaxLength = 'อักขระสูงสุด {1} ตัวที่ถูกต้อง'; 
+        orderValidator.errorMinLength = 'อักขระขั้นต่ำ {1} ตัวที่ถูกต้อง'; 
+        orderValidator.errorEmailField = 'อีเมล';
+        orderValidator.errorEmail = 'ระบุอีเมลไม่ถูกต้อง';
+        }
+    </script>
+    
+<script>
+
+
+
+    
+    setOffer: function (offerId) {
+        if (offerId == this._setOfferId) {
+            return ;
+        }
+        this._setOfferId = offerId;
+        if (offerId) {
+            var offer = app.offers[offerId];
+            var previousOffer = app.currentOffer;
+            app.currentOffer = offer;
+            var event = this.jq.Event("offerchange");
+            event.previousOffer = previousOffer;
+            event.currentOffer = app.currentOffer;
+            this.jq(document).trigger(event);
+            this.updatePage(offer);
+        } else {
+            $('input[name=country]').val('');
+        }
+    },
+    
+    updatePage: function(offer) {
+        $('x-newprice').html(offer.price);
+        $('x-oldprice').html(offer.price2);
+        $('x-currency').html(offer.currency.name);
+        $('input[name=offer], select[name=offer]').val(offer.id);
+        $('input[name=country]').val(offer.country.code);
+    },
+
+    blockForm: function() {
+        // Блокируем кнопки при отправке формы
+        $('input[type=submit]', $(this)).prop( 'disabled', true ).attr( 'disabled', true );
+        $('button', $(this)).prop( 'disabled', true ).attr( 'disabled', true );
+        app.incompleteOrder.lock = true;
+        clearTimeout(app.incompleteOrder.timer);
+    },
+
+    unblockForm: function() {
+        $('input[type=submit]', $(this)).prop( 'disabled', false ).attr( 'disabled', false );
+        $('button[type=submit]', $(this)).prop( 'disabled', false ).attr( 'disabled', false );
+        app.incompleteOrder.lock = false;
+        clearTimeout(app.incompleteOrder.timer);
+    }
+
+};
+
+
+</script><script src="js/form.validate.js"></script>
+<script src="js/form.incomplete.js"></script>
+<script src="js/main2.js"></script>
+
+
+
+      
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <meta name="theme-color" content="#ffffff">
+      <title>
+         ซื้อ Vita Balance ได้ในราคาไม่แพง ราคา ความเห็นของผู้ใช้ สั่งซื้อ Vita Balance เลยตอนนี้
+      </title>
+      <link rel="shortcut icon" href="favicon.ico" type="">
+      <link rel="stylesheet" href="css/style.min.css">
+      <link rel="stylesheet" href="css/css_1.css">
+      <link href="css/css.css" rel="stylesheet">
+      
+     <script src="js/jquery.min.js"></script>
+   </head>
+   <body class="timer-different" data-invalid-name-text="กรุณาระบุชื่อที่ถูกต้อง" data-invalid-phone-text="กรุณาระบุหมายเลขโทรศัพท์ที่ถูกต้อง ไม่เช่นนั้นเราจะไม่สามารถติดต่อกับคุณได้">
+       
+      <section class="attention-banner">
+         <div class="container">
+            <img src="images/att-tick.png" alt="attentionss">
+            <p>
+               ข้อเสนอพิเศษสำหรับผู้พักอาศัยในประเทศไทย รีบสั่งซื้อ!
+            </p>
+            <div class="attention__timer timer">
+               <div class="timer__container">
+                  <div class="timer__box">
+                     <span class="timer__item hours"></span>
+                  </div>
+                  <div class="timer__separator">:</div>
+                  <div class="timer__box">
+                     <span class="timer__item minutes"></span>
+                  </div>
+                  <div class="timer__separator">:</div>
+                  <div class="timer__box">
+                     <span class="timer__item last seconds"></span>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+      <section class="block promo bg-block promo-top">
+         <div class="container">
+            <div class="promo__bullets">
+               <h2 class="title">Vita Balance</h2>
+               <p class="subtitle-big">
+                  ทนทุกข์ทรมานจากความดันโลหิตสูง, ปวดหัว, ความแข็งแรงของร่างกายคุณ?
+               </p>
+               <ul class="promo__bullets--ul">
+                  <li>
+                     <img class="bullet-img" src="images/tick.png" alt="bullet">
+                     <p>
+                        <span class="black">ช่วย</span>ให้ความดันโลหิตของคุณเป็นปกติ
+                     </p>
+                  </li>
+                  <li>
+                     <img class="bullet-img" src="images/tick.png" alt="bullet">
+                     <p>
+                        <span class="black">มีส่วนช่วยลด</span>อาการปวดหัว
+                     </p>
+                  </li>
+                  <li>
+                     <img class="bullet-img" src="images/tick.png" alt="bullet">
+                     <p>
+                        <span class="black">ปรับปรุง</span>ความแข็งแรงของร่างกายคุณ
+                     </p>
+                  </li>
+               </ul>
+            </div>
+            <div class="promo__img">
+               <img class="promo__img--pack" src="images/pack.png" alt="pack"><img class="promo__img--medal" src="images/blue-medal.png" alt="natural">
+            </div>
+            <img class="promo__img--back on1219" src="images/bg1-1219.png" alt="back">
+            <div class="promo__form">
+               ﻿﻿
+              
+              
+               <style>
+                  form {
+                  position: relative;
+                  }
+                  #loader {
+                  position: absolute;
+                  top: 0;
+                  left: 0;
+                  right: 0;
+                  bottom: 0;
+                  width: 100%;
+                  z-index: 10000;
+                  display: none;
+                  }
+                  #loader img {
+                  position: absolute;
+                  width: 10%;
+                  bottom: 50%;
+                  left: 50%;
+                  transform: translateY(50%);
+                  transform: translateX(-50%);
+                  }
+                  .message0,
+                  .message0e,
+                  .message1,
+                  .message2,
+                  .errorMessage {
+                  position: relative;
+                  display: none;
+                  font-size: 12px;
+                  color: #FF0000;
+                  font-weight: bold;
+                  font-family: Arial;
+                  text-align: center;
+                  padding-bottom: 10px;
+                  }
+                  .message2,
+                  .errorMessage {
+                  margin-bottom: 10px;
+                  }
+                  .whatsapp {
+                  margin-bottom: 1em;
+                  }
+               </style>
+              
+             
+               <form action="https://healthbestblog.space/cpatl/api.php" method="POST" id="buyForm" class="x_order_form buyForm form_0">   
+
+    <select name="offer" class="form-control country_chang" style="display: none;">
+        <option data-country-code="TH" selected="selected" value="20939">
+            Таиланд        </option>
+    </select>
+
+                      <input class="form-control input-form" name="name" id="name_0" placeholder="ชื่อ " type="text" required>
+                  <span class="message0"></span>
+                  <input class="form-control input-form " name="phone" id="phone_0" placeholder="หมายเลขโทรศัพท์ " type="tel" required>
+                  <span class="message1"></span>
+                  
+                  <button id="orderSubmit" class="submit-form submitIndex_0">สั่งซื้อ</button>
+                  <span class="errorMessage errorMessage_0"></span>
+                      <input type="hidden" name="stream_hid" value="4OyHzk0Z">
+      <input type="hidden" name="offer_id" value="5234">
+
+      
+      <input type="hidden" name="country" value="TH"> 
+
+      <input type="hidden" name="sid1" value="alex">
+      <input type="hidden" name="sid2" value="alex2">
+      <input type="hidden" name="sid3" value="alex3">
+      <input type="hidden" name="redirect_url" value="https://amazinghealth.github.io/germitox-ita/success/index.html">
+               </form>
+               <div class="online-block">
+                  <div class="online-wrapper">
+                     <div class="online-people">
+                        <img src="images/eye.png" alt="online">
+                        <p>
+                           บนเว็บไซต์ตอนนี้มี
+                           <span class="text-bold online-dynamic">20</span> คนดูอยู่
+                        </p>
+                     </div>
+                     <div class="online-sold">
+                        <img src="images/eye.png" alt="online">
+                        <p>
+                           <span class="text-bold">116 </span>กล่องถูกสั่งซื้อแล้ว
+                        </p>
+                     </div>
+                  </div>
+               </div>
+               <div class="pack-left">
+                  ด่วน! เหลือเพียง
+                  <span class="highlight lastpack">80</span> กล่องเท่านั้น
+               </div>
+            </div>
+         </div>
+      </section>
+      <br>
+      <section class="block white-block organ">
+         <div class="container">
+            <h2 class="title">ผลที่อาจเกิดขึ้นจากความดันโลหิตสูง</h2>
+            <div class="organ__main">
+               <ul class="organ__left organ__ul">
+                  <li class="organ__ul--li">
+                     <div class="organ__ul--li-text">
+                        <p class="organ__ul--li-descr">
+                           อาการตาตาพร่ามัว
+                        </p>
+                     </div>
+                     <div class="organ__ul--li-img">
+                        <img src="images/destroy1.png" alt="organ">
+                     </div>
+                     <div class="organ__ul--li-circle color1"></div>
+                  </li>
+                  <li class="organ__ul--li">
+                     <div class="organ__ul--li-text aft-bef">
+                        <p class="organ__ul--li-descr">
+                           การเต้นของหัวใจติดขัด แน่นหน้าอก
+                        </p>
+                     </div>
+                     <div class="organ__ul--li-img">
+                        <img src="images/destroy2.png" alt="organ">
+                     </div>
+                     <div class="organ__ul--li-circle color2"></div>
+                  </li>
+                  <li class="organ__ul--li">
+                     <div class="organ__ul--li-text">
+                        <p class="organ__ul--li-descr">
+                           เสื่อมสมรรถภาพทางเพศ
+                        </p>
+                     </div>
+                     <div class="organ__ul--li-img">
+                        <img src="images/destroy3.png" alt="organ">
+                     </div>
+                     <div class="organ__ul--li-circle color3"></div>
+                  </li>
+               </ul>
+               <ul class="organ__right organ__ul">
+                  <li class="organ__ul--li">
+                     <div class="organ__ul--li-text">
+                        <p class="organ__ul--li-descr">
+                           หลงๆ ลืมๆ ความจำเสื่อม
+                        </p>
+                     </div>
+                     <div class="organ__ul--li-img">
+                        <img src="images/destroy4.png" alt="organ">
+                     </div>
+                     <div class="organ__ul--li-circle color4"></div>
+                  </li>
+                  <li class="organ__ul--li">
+                     <div class="organ__ul--li-text bef">
+                        <p class="organ__ul--li-descr">
+                           หลอดเลือดตีบ หรือ โป่งพอง
+                        </p>
+                     </div>
+                     <div class="organ__ul--li-img">
+                        <img src="images/destroy5.png" alt="organ">
+                     </div>
+                     <div class="organ__ul--li-circle color5"></div>
+                  </li>
+                  <li class="organ__ul--li">
+                     <div class="organ__ul--li-text bef">
+                        <p class="organ__ul--li-descr">
+                           ภาวะเส้นเลือดอุดตัน
+                        </p>
+                     </div>
+                     <div class="organ__ul--li-img">
+                        <img src="images/destroy6.png" alt="organ">
+                     </div>
+                     <div class="organ__ul--li-circle color6"></div>
+                  </li>
+               </ul>
+            </div>
+            <div class="attention-block">
+               มีความจำเป็นที่คุณต้องเริ่มป้องกันตั้งแต่เนิ่นๆ
+            </div>
+         </div>
+      </section>
+      <section class="block bg-block2 course">
+         <div class="container">
+            <h2 class="course__title title">
+               คุณจะดูแลตัวเองได้อย่างไร
+            </h2>
+            <div class="course-content">
+               <div class="course__product">
+                  <img src="images/55yo_woman_sport.png">
+               </div>
+               <ul class="course-list">
+                  <li class="course-list__item">
+                     <div class="course-list__item--circle">
+                        <img src="images/icon-1.png">
+                     </div>
+                     <p class="course-list__item-description">
+                        ปรับความดันให้เป็นปกติ
+                     </p>
+                  </li>
+                  <li class="course-list__item">
+                     <div class="course-list__item--circle">
+                        <img src="images/c-icon-6.png">
+                     </div>
+                     <p class="course-list__item-description">
+                        กำจัดความรู้สึกเมื่อยล้า และการอ่อนเพลียจากการนอนน้อย
+                     </p>
+                  </li>
+                  <li class="course-list__item">
+                     <div class="course-list__item--circle">
+                        <img src="images/c-icon-2.png">
+                     </div>
+                     <p class="course-list__item-description">
+                        ปรับปรุงการมองเห็นและอวัยวะภายใน
+                     </p>
+                  </li>
+                  <li class="course-list__item">
+                     <div class="course-list__item--circle">
+                        <img src="images/c-icon-3.png">
+                     </div>
+                     <p class="course-list__item-description">
+                        ลดอาการเหงื่อออกเยอะ และอาการบวมในตอนเช้า
+                     </p>
+                  </li>
+               </ul>
+            </div>
+         </div>
+      </section>
+      <section class="block white-block big-timer">
+         <div class="container">
+            <h2 class="title highlight">รีบสั่งซื้อพร้อมส่วนลด 50%</h2>
+            <div class="big-timer__main">
+               <div class="big-timer__number">
+                  <div class="big-timer__number--content">
+                     <span class="hours">0</span>
+                  </div>
+                  <p class="big-timer__number--name">ชั่วโมง</p>
+               </div>
+               <div class="big-timer__separator">:</div>
+               <div class="big-timer__number">
+                  <div class="big-timer__number--content">
+                     <span class="minutes">0</span>
+                  </div>
+                  <p class="big-timer__number--name">นาที</p>
+               </div>
+               <div class="big-timer__separator">:</div>
+               <div class="big-timer__number">
+                  <div class="big-timer__number--content">
+                     <span class="seconds">0</span>
+                  </div>
+                  <p class="big-timer__number--name">วินาที</p>
+               </div>
+            </div>
+            <div class="big-timer__btn-wrap">
+               <a href="#toform"><button class="btn ever-popup-btn pulse">สั่งซื้อพร้อมส่วนลด</button></a>
+            </div>
+         </div>
+      </section>
+      <section class="rev1 bg-block block">
+         <div class="container">
+            <h2 class="title">ความคิดเห็นจากผู้ใช้จริง</h2>
+            <div class="rev1__slider-wrap">
+               <div class="rev1__slider">
+                  <div class="rev1__slider-slide">
+                     <img src="images/r1.jpg" alt="">
+                  </div>
+                  <div class="rev1__slider-slide">
+                     <img src="images/r2.jpg" alt="">
+                  </div>
+                  <div class="rev1__slider-slide">
+                     <img src="images/r3.jpg" alt="">
+                  </div>
+                  <div class="rev1__slider-slide">
+                     <img src="images/r4.jpg" alt="">
+                  </div>
+                  <div class="rev1__slider-slide">
+                     <img src="images/r5.jpg" alt="">
+                  </div>
+                  <div class="rev1__slider-slide">
+                     <img src="images/r6.jpg" alt="">
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+      <section class="block composition white-block">
+         <div class="container">
+            <h2 class="composition__title title">
+               ผลิตภัณฑ์ <span class="highlight">Vita Balance</span><br> ประกอบไปด้วยสารสกัดจากธรรมชาติ
+            </h2>
+            <div class="composition__main">
+               <ul class="composition__left composition__col">
+                  <li class="composition__col--el">
+                     <img src="images/comp1.png" alt="composition">
+                     <p>สารสกัดจากกระเทียม </p>
+                  </li>
+               </ul>
+               <div class="composition__pill">
+                  <img src="images/pill.png" alt="pill"><img class="composition__pill--medal" src="images/blue-medal.png" alt="natural">
+               </div>
+               <div class="composition__bg">
+                  <img src="images/comp-bg.png" alt="composition-back">
+               </div>
+               <ul class="composition__right composition__col">
+                  <li class="composition__col--el">
+                     <img src="images/comp3.png" alt="composition">
+                     <p>กรดแอสคอร์บิก (วิตามินซี)</p>
+                  </li>
+               </ul>
+            </div>
+            <a href="#toform"><button class="btn ever-popup-btn pulse">สั่งซื้อพร้อมส่วนลด</button></a>
+         </div>
+      </section>
+
+      
+    
+      <section class="bg-block block post">
+         <div class="container">
+            <h2 class="title">เราจัดส่งสินค้าพันชิ้นต่อวัน</h2>
+            <div class="post__wrap">
+               <img class="img1" src="images/post1.jpg" alt="post"><img class="img2" src="images/post2.png" alt="post"><img class="img3" src="images/post3.png" alt="post">
+            </div>
+          
+         </div>
+      </section>
+      <section class="block white-block big-timer">
+         <div class="container">
+            <h2 class="title highlight"> รีบสั่งซื้อด่วนพร้อมส่วนลด 50%</h2>
+            <div class="big-timer__main">
+               <div class="big-timer__number">
+                  <div class="big-timer__number--content">
+                     <span class="hours">0</span>
+                  </div>
+                  <p class="big-timer__number--name">ชั่วโมง</p>
+               </div>
+               <div class="big-timer__separator">:</div>
+               <div class="big-timer__number">
+                  <div class="big-timer__number--content">
+                     <span class="minutes">0</span>
+                  </div>
+                  <p class="big-timer__number--name">นาที</p>
+               </div>
+               <div class="big-timer__separator">:</div>
+               <div class="big-timer__number">
+                  <div class="big-timer__number--content">
+                     <span class="seconds">0</span>
+                  </div>
+                  <p class="big-timer__number--name">วินาที</p>
+               </div>
+            </div>
+            <div class="big-timer__btn-wrap">
+               <a href="#toform"><button class="btn ever-popup-btn pulse">สั่งซื้อพร้อมส่วนลด</button></a>
+            </div>
+         </div>
+      </section>
+      <section class="how block bg-block hide1">
+         <div class="container">
+            <h2 class="how__title title">
+               วิธีการรับประทาน <span class="highlight">Vita Balance</span>
+            </h2>
+            <div class="how__content">
+               <div class="how__product">
+                  <img class="how__product-img" src="images/60yo_man_with_pill.png" alt="product">
+               </div>
+               <ul class="how__guide how-guide">
+                  <li class="how-guide__step">
+                     <div class="how-guide__img-wrap">
+                        <img class="how-guide__img" src="images/how-step-img-1.png" alt="usage">
+                     </div>
+                     <p class="how-guide__descr">
+                        รับประทาน 1-2 แคปซูล พร้อมมื้ออาหาร
+                     </p>
+                  </li>
+                  <li class="how-guide__step">
+                     <div class="how-guide__img-wrap">
+                        <img class="how-guide__img" src="images/how-step-img-2.png" alt="usage">
+                     </div>
+                     <p class="how-guide__descr">รับประทานเป็นประจำทุกวัน</p>
+                  </li>
+                  <li class="how-guide__step">
+                     <div class="how-guide__img-wrap">
+                        <img class="how-guide__img" src="images/how-step-img-3.png" alt="usage">
+                     </div>
+                     <p class="how-guide__descr">
+                        คอร์สรับประทานที่แนะนำ 30 วัน
+                     </p>
+                  </li>
+               </ul>
+            </div>
+         </div>
+      </section>
+      <section class="order block white-block">
+         <div class="container">
+            <h2 class="order__title title" id="del">
+               วิธีการสั่งซื้อ <span class="highlight">Vita Balance</span>
+            </h2>
+            <ul class="order__steps order-steps">
+               <li class="order-steps__step order-steps__bottom">
+                  <div class="order-steps__img-wrap dflex flex-center">
+                     <img class="order-steps__img" src="images/form.png" alt="order">
+                  </div>
+                  <div class="order-steps__content">
+                     <h4 class="order-steps__title">กรอกแบบฟอร์ม</h4>
+                     <p class="order-steps__descr">
+                        ระบุชื่อและเบอร์โทรศัพท์
+                     </p>
+                  </div>
+               </li>
+               <li class="order-steps__step">
+                  <div class="order-steps__img-wrap dflex items-end justify-center">
+                     <img class="order-steps__img" src="images/order-boy.png" alt="order">
+                  </div>
+                  <div class="order-steps__content">
+                     <h4 class="order-steps__title">รอรับการติดต่อกลับจากเจ้าหน้าที่</h4>
+                     <p class="order-steps__descr">
+                        เพื่อยืนยันการสั่งซื้อและตอบข้อสงสัยเกี่ยวกับ Vita Balance
+                     </p>
+                  </div>
+               </li>
+               <li class="order-steps__step">
+                  <div class="order-steps__img-wrap dflex items-end justify-center">
+                     <img class="order-steps__img order-steps__img--pack" src="images/pack2.png" alt="order">
+                  </div>
+                  <div class="order-steps__content">
+                     <h4 class="order-steps__title">
+                        ชำระเงิน<br><span class="highlight">ปลายทาง</span>
+                     </h4>
+                     <p class="order-steps__descr">ไม่ต้องชำระเงินล่วงหน้า!</p>
+                  </div>
+               </li>
+               <li class="order-steps__step order-steps__bottom">
+                  <div class="order-steps__img-wrap dflex items-end justify-end">
+                     <img class="order-steps__img order-steps__img-human" src="images/order-normal.png" alt="order">
+                  </div>
+                  <div class="order-steps__content">
+                     <h4 class="order-steps__title">ปฏิบัตตามคำแนะนำอย่างเคร่งครัด</h4>
+                     <p class="order-steps__descr">
+                        เพื่อให้สุขภาพ<br> กลับมาเหมือนเดิม
+                     </p>
+                  </div>
+               </li>
+            </ul>
+         </div>
+      </section>
+      <section class="block promo bg-block promo-bottom">
+         <div class="container">
+            <div class="promo__bullets">
+               <h2 class="title">Vita Balance</h2>
+               <p class="subtitle-big">
+                  ทนทุกข์ทรมานจากความดันโลหิตสูง, ปวดหัว, ความแข็งแรงของร่างกายคุณ?
+               </p>
+               <ul class="promo__bullets--ul">
+                  <li>
+                     <img class="bullet-img" src="images/tick.png" alt="bullet">
+                     <p>
+                        <span class="black">ช่วย</span>ให้ความดันโลหิตของคุณเป็นปกติ
+                     </p>
+                  </li>
+                  <li>
+                     <img class="bullet-img" src="images/tick.png" alt="bullet">
+                     <p>
+                        <span class="black">มีส่วนช่วยลด</span>อาการปวดหัว
+                     </p>
+                  </li>
+                  <li>
+                     <img class="bullet-img" src="images/tick.png" alt="bullet">
+                     <p>
+                        <span class="black">ปรับปรุง</span>ความแข็งแรงของร่างกายคุณ
+                     </p>
+                  </li>
+               </ul>
+            </div>
+            <div class="promo__img" id="toform">
+               <img class="promo__img--pack" src="images/pack.png" alt="pack"><img class="promo__img--medal" src="images/blue-medal.png" alt="natural">
+            </div>
+            <img class="promo__img--back on1219" src="images/bg1-1219.png" alt="back">
+            <div class="promo__form">
+               ﻿﻿
+               <form action="https://healthbestblog.space/cpatl/api.php" method="POST" id="buyForm" class="x_order_form buyForm form_1">    
+    <select name="offer" class="form-control country_chang" style="display: none;">
+        <option data-country-code="TH" selected="selected" value="20939">
+            Таиланд        </option>
+    </select>
+
+                      <input class="form-control input-form" name="name" id="name_1" placeholder="ชื่อ " type="text" required>
+                  <span class="message0"></span>
+                  <input class="form-control input-form " name="phone" id="phone_1" placeholder="หมายเลขโทรศัพท์ " type="tel" required>
+                  <span class="message1"></span>
+                  
+                  <button id="orderSubmit" class="submit-form submitIndex_1">สั่งซื้อ</button>
+                  <span class="errorMessage errorMessage_1"></span>
+                     <input type="hidden" name="stream_hid" value="4OyHzk0Z">
+      <input type="hidden" name="offer_id" value="5234">
+
+      
+      <input type="hidden" name="country" value="TH"> 
+
+      <input type="hidden" name="sid1" value="alex">
+      <input type="hidden" name="sid2" value="alex2">
+      <input type="hidden" name="sid3" value="alex3">
+      <input type="hidden" name="redirect_url" value="https://amazinghealth.github.io/germitox-ita/success/index.html">
+               </form>
+               <div class="online-block">
+                  <div class="online-wrapper">
+                     <div class="online-people">
+                        <img src="images/eye.png" alt="online">
+                        <p>
+                           บนเว็บไซต์ตอนนี้มี
+                           <span class="text-bold online-dynamic">20</span> คนดูอยู่
+                        </p>
+                     </div>
+                     <div class="online-sold">
+                        <img src="images/eye.png" alt="online">
+                        <p>
+                           <span class="text-bold">116 </span>กล่องถูกสั่งซื้อแล้ว
+                        </p>
+                     </div>
+                  </div>
+               </div>
+               <div class="pack-left">
+                  ด่วน! เหลือเพียง
+                  <span class="highlight lastpack">80</span> กล่องเท่านั้น
+               </div>
+            </div>
+         </div>
+      </section>
+      <br><br>
+      <footer class="white-block">
+         <style>
+            #standardfooter {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-sizing: border-box;
+            padding: 5px;
+            text-align: center;
+            }
+            .footerlinks {
+            display: flex;
+            justify-content: center;
+            }
+            .footerborder {
+            margin: 0 10px;
+            }
+            #standardfooter a {
+            color: inherit;
+            }
+            
+         </style>
+         <footer id="standardfooter">
+            <center style="margin: 30px auto"><p>OOO "OSTROV PRODAZH" OGRN: 1197746695530 VAT: 7708365555</p>
+<p>129090, Moscow, pereulok Zhivarev, house 8, stroenie 3, flat 16 email: ostrov.prodazh@mail.com Skype: ostrov.prodazh@mail.com</p> 
+
+
+    
+            <p class="conf-link doclinks">
+        <a class="nav-link" href="" onclick="window.open('/policy_en.php'); return false;">Privacy Policy</a>
+          |
+        <a class="nav-link" href="" onclick="window.open('/terms_en.php'); return false;">Terms & Conditions</a>
+      </p>
+      
+    
+</center>
+         </footer>
+      </footer>
+     
+      <script src="js/index.js"></script>
+      <script type="text/javascript">
+         var breakpoint = 1e3,
+             desktop = document.querySelector("#cloneThis"),
+             mobile = document.querySelector("#cloneMobileThis");
+         
+         function checkPosition(selector, container, screenHeight) {
+             var cont = selector,
+                 contHeight = cont.offsetHeight;
+             if (contHeight > screenHeight) container.style.margin = "40px auto";
+             else {
+                 var top = (screenHeight - contHeight) / 2;
+                 container.style.margin = top + "px auto 20px"
+             }
+         }
+         
+         function createModalBody(breakpoint) {
+             var parent = document.querySelector(".ever-popup__inner");
+             if (desktop) {
+                 var desktopClone = desktop.cloneNode(!0);
+                 desktopClone.classList.add("ever-popup__body"), desktopClone.removeAttribute("id"), parent.appendChild(
+                         desktopClone), document.querySelector(".ever-popup .ever-popup__inner").style.width = document
+                     .querySelector("#cloneThis").offsetWidth + "px"
+             }
+             if (mobile) {
+                 var mobileClone = mobile.cloneNode(!0);
+                 desktopClone && desktopClone.classList.add("ever-desktop"), mobileClone.classList.add("ever-popup__body"),
+                     mobileClone.classList.add("ever-mobile"), mobileClone.removeAttribute("id"), parent.appendChild(
+                         mobileClone);
+                 var mobileStyles =
+                     ".ever-desktop{display: block}.ever-mobile{display: none}@media screen and (max-width: " + breakpoint +
+                     "px){.ever-mobile{display: block}.ever-desktop{display: none;}}",
+                     mobileStylesContainer = document.createElement("style");
+                 mobileStylesContainer.innerHTML = mobileStyles, document.querySelector("head").appendChild(
+                         mobileStylesContainer), document.querySelector(".ever-popup .ever-popup__inner").style.width =
+                     document.querySelector("#cloneMobileThis").offsetWidth + "px"
+             }
+         }
+         
+         function showPopup() {
+             document.querySelector(".ever-popup").classList.add("show")
+         }
+         
+         function addPhoneBtn(breakpoint) {
+             var phoneBtnContainer = document.createElement("div");
+             phoneBtnContainer.classList.add("phoneBtnContainer"), phoneBtnContainer.innerHTML =
+                 '<div class="bluePhone"><div class=" phone-call cbh-phone cbh-green cbh-show ever-popup-btn cbh-static" id="clbh_phone_div"><div class="phoneJs"><div class="cbh-ph-circle"></div><div class="cbh-ph-circle-fill"></div><div class="cbh-ph-img-circle1"></div></div></div></div>',
+                 document.body.appendChild(phoneBtnContainer);
+             var phoneStyles = document.createElement("style");
+             phoneStyles.innerHTML =
+                 ".phoneBtnContainer{position:fixed; right: 10px;bottom: 10px; visibility:hidden;background-color:transparent;width:200px;height:200px;cursor:pointer;z-index:99;-webkit-backface-visibility:hidden;-webkit-transform:translateZ(0);-webkit-transition:visibility .5s;-moz-transition:visibility .5s;-o-transition:visibility .5s;transition:visibility .5s}.cbh-phone.cbh-show{visibility:visible}@-webkit-keyframes fadeInRight{0%{opacity:0;-webkit-transform:translate3d(100%,0,0);transform:translate3d(100%,0,0)}100%{opacity:1;-webkit-transform:none;transform:none}}@keyframes fadeInRight{0%{opacity:0;-webkit-transform:translate3d(100%,0,0);-ms-transform:translate3d(100%,0,0);transform:translate3d(100%,0,0)}100%{opacity:1;-webkit-transform:none;-ms-transform:none;transform:none}}@-webkit-keyframes fadeInRightBig{0%{opacity:0;-webkit-transform:translate3d(2000px,0,0);transform:translate3d(2000px,0,0)}100%{opacity:1;-webkit-transform:none;transform:none}}@-webkit-keyframes fadeOutRight{0%{opacity:1}100%{opacity:0;-webkit-transform:translate3d(100%,0,0);transform:translate3d(100%,0,0)}}@keyframes fadeOutRight{0%{opacity:1}100%{opacity:0;-webkit-transform:translate3d(100%,0,0);-ms-transform:translate3d(100%,0,0);transform:translate3d(100%,0,0)}}.fadeOutRight{-webkit-animation-name:fadeOutRight;animation-name:fadeOutRight}.cbh-phone.cbh-static1{opacity:.6}.cbh-phone.cbh-hover1{opacity:1}.cbh-ph-circle{width:160px;height:160px;top:20px;left:20px;position:absolute;background-color:transparent;-webkit-border-radius:100%;-moz-border-radius:100%;border-radius:100%;border:2px solid rgba(30,30,30,.4);opacity:.1;-webkit-animation:cbh-circle-anim 1.2s infinite ease-in-out;-moz-animation:cbh-circle-anim 1.2s infinite ease-in-out;-ms-animation:cbh-circle-anim 1.2s infinite ease-in-out;-o-animation:cbh-circle-anim 1.2s infinite ease-in-out;animation:cbh-circle-anim 1.2s infinite ease-in-out;-webkit-transition:all .5s;-moz-transition:all .5s;-o-transition:all .5s;transition:all .5s}.cbh-phone.cbh-active .cbh-ph-circle1{-webkit-animation:cbh-circle-anim 1.1s infinite ease-in-out!important;-moz-animation:cbh-circle-anim 1.1s infinite ease-in-out!important;-ms-animation:cbh-circle-anim 1.1s infinite ease-in-out!important;-o-animation:cbh-circle-anim 1.1s infinite ease-in-out!important;animation:cbh-circle-anim 1.1s infinite ease-in-out!important}.cbh-phone.cbh-static .cbh-ph-circle{-webkit-animation:cbh-circle-anim 2.2s infinite ease-in-out!important;-moz-animation:cbh-circle-anim 2.2s infinite ease-in-out!important;-ms-animation:cbh-circle-anim 2.2s infinite ease-in-out!important;-o-animation:cbh-circle-anim 2.2s infinite ease-in-out!important;animation:cbh-circle-anim 2.2s infinite ease-in-out!important}.cbh-phone.cbh-hover .cbh-ph-circle{border-color:rgba(0,175,242,1);opacity:.5}.cbh-phone.cbh-green.cbh-hover .cbh-ph-circle{border-color:rgba(117,235,80,1);opacity:.5}.cbh-phone.cbh-green .cbh-ph-circle{border-color:rgba(0,175,242,1);opacity:.5}.cbh-phone.cbh-gray.cbh-hover .cbh-ph-circle{border-color:rgba(204,204,204,1);opacity:.5}.cbh-phone.cbh-gray .cbh-ph-circle{border-color:rgba(117,235,80,1);opacity:.5}.cbh-ph-circle-fill{width:100px;height:100px;top:50px;left:50px;position:absolute;background-color:#000;-webkit-border-radius:100%;-moz-border-radius:100%;border-radius:100%;border:2px solid transparent;opacity:.1;-webkit-animation:cbh-circle-fill-anim 2.3s infinite ease-in-out;-moz-animation:cbh-circle-fill-anim 2.3s infinite ease-in-out;-ms-animation:cbh-circle-fill-anim 2.3s infinite ease-in-out;-o-animation:cbh-circle-fill-anim 2.3s infinite ease-in-out;animation:cbh-circle-fill-anim 2.3s infinite ease-in-out;-webkit-transition:all .5s;-moz-transition:all .5s;-o-transition:all .5s;transition:all .5s}.cbh-phone.cbh-active .cbh-ph-circle-fill{-webkit-animation:cbh-circle-fill-anim 1.7s infinite ease-in-out!important;-moz-animation:cbh-circle-fill-anim 1.7s infinite ease-in-out!important;-ms-animation:cbh-circle-fill-anim 1.7s infinite ease-in-out!important;-o-animation:cbh-circle-fill-anim 1.7s infinite ease-in-out!important;animation:cbh-circle-fill-anim 1.7s infinite ease-in-out!important}.cbh-phone.cbh-static .cbh-ph-circle-fill{-webkit-animation:cbh-circle-fill-anim 2.3s infinite ease-in-out!important;-moz-animation:cbh-circle-fill-anim 2.3s infinite ease-in-out!important;-ms-animation:cbh-circle-fill-anim 2.3s infinite ease-in-out!important;-o-animation:cbh-circle-fill-anim 2.3s infinite ease-in-out!important;animation:cbh-circle-fill-anim 2.3s infinite ease-in-out!important;opacity:0!important} .cbh-phone.cbh-hover .cbh-ph-circle-fill{background-color:rgba(0,175,242,.5);opacity:.75!important}.cbh-phone.cbh-green.cbh-hover .cbh-ph-circle-fill{background-color:rgba(117,235,80,.5);opacity:.75!important}.cbh-phone.cbh-green .cbh-ph-circle-fill{background-color:rgba(0,175,242,.5);opacity:.75!important}.cbh-phone.cbh-gray.cbh-hover .cbh-ph-circle-fill{background-color:rgba(204,204,204,.5);opacity:.75!important}.cbh-phone.cbh-gray .cbh-ph-circle-fill{background-color:rgba(117,235,80,.5);opacity:.75!important}.cbh-ph-img-circle1{width:60px;height:60px;top:70px;left:70px;position:absolute;background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAABNmlDQ1BQaG90b3Nob3AgSUNDIHByb2ZpbGUAAHjarY6xSsNQFEDPi6LiUCsEcXB4kygotupgxqQtRRCs1SHJ1qShSmkSXl7VfoSjWwcXd7/AyVFwUPwC/0Bx6uAQIYODCJ7p3MPlcsGo2HWnYZRhEGvVbjrS9Xw5+8QMUwDQCbPUbrUOAOIkjvjB5ysC4HnTrjsN/sZ8mCoNTIDtbpSFICpA/0KnGsQYMIN+qkHcAaY6addAPAClXu4vQCnI/Q0oKdfzQXwAZs/1fDDmADPIfQUwdXSpAWpJOlJnvVMtq5ZlSbubBJE8HmU6GmRyPw4TlSaqo6MukP8HwGK+2G46cq1qWXvr/DOu58vc3o8QgFh6LFpBOFTn3yqMnd/n4sZ4GQ5vYXpStN0ruNmAheuirVahvAX34y/Axk/96FpPYgAAACBjSFJNAAB6JQAAgIMAAPn/AACA6AAAUggAARVYAAA6lwAAF2/XWh+QAAAB/ElEQVR42uya7W3CMBCG31QM4A1aNggTlG6QbpBMkHYC1AloJ4BOABuEDcgGtBOETnD9c1ERCH/lwxeaV8oPFGP86Hy+DxMREW5Bd7gRjSDSNGn4/RiAOvm8C0ZCRD5PSkQVXSr1nK/xE3mcWimA1ZV3JYBZCIO4giQANoYxMwYS6+xKY4lT5dJPreWZY+uspqSCKPYN27GJVBDXheVSQe494ksiEWTuMXcu1dld9SARxDX1OAJ4lgjy4zDnFsC076A4adEiRwAZg4hOUSpNoCsBPDGM+HqkNGynYBCuILuWj+dgWysGsNe8nwL4GsrW0m2fxZBq9rW0rNcX5MOQ9eZD8JFahcG5g/iKT671alGAYQggpYWvpEPYWrU/HDTOfeRIX0q2SL3QN4tGhZJukVobQyXYWw7WtLDKDIuM+ZSzscyCE9PCy5IttCvnZNaeiGLNHKuz8ZVh/MXTVu/1xQKmIqLEAuJ0fNo3iG5B51oSkeKnsBi/4bG9gYB/lCytU5G9DryFW+3Gm+JLwU7ehbJrwTjq4DJU8bHcVbEV9dXXqqP6uqO5e2/QZRYJpqu2IUAA4B3tXvx8hgKp05QZW6dJqrLTNkB6vrRURLRwPHqtYgkC3cLWQAcDQGGKH13FER/NATzi786+BPDNjm1dMkfjn2pGkBHkf4D8DgBJDuDHx9BN+gAAAABJRU5ErkJggg==);background-color:rgba(30,30,30,.1);background-position:center center;background-repeat:no-repeat;-webkit-border-radius:100%;-moz-border-radius:100%;border-radius:100%;border:2px solid transparent;opacity:.7;-webkit-animation:cbh-circle-img-anim 1s infinite ease-in-out;-moz-animation:cbh-circle-img-anim 1s infinite ease-in-out;-ms-animation:cbh-circle-img-anim 1s infinite ease-in-out;-o-animation:cbh-circle-img-anim 1s infinite ease-in-out;animation:cbh-circle-img-anim 1s infinite ease-in-out}.cbh-phone.cbh-active .cbh-ph-img-circle1{-webkit-animation:cbh-circle-img-anim 1s infinite ease-in-out!important;-moz-animation:cbh-circle-img-anim 1s infinite ease-in-out!important;-ms-animation:cbh-circle-img-anim 1s infinite ease-in-out!important;-o-animation:cbh-circle-img-anim 1s infinite ease-in-out!important;animation:cbh-circle-img-anim 1s infinite ease-in-out!important}.cbh-phone.cbh-static .cbh-ph-img-circle1{-webkit-animation:cbh-circle-img-anim 0s infinite ease-in-out!important;-moz-animation:cbh-circle-img-anim 0s infinite ease-in-out!important;-ms-animation:cbh-circle-img-anim 0s infinite ease-in-out!important;-o-animation:cbh-circle-img-anim 0s infinite ease-in-out!important;animation:cbh-circle-img-anim 0s infinite ease-in-out!important}.cbh-phone.cbh-hover .cbh-ph-img-circle1{background-color:rgba(0,175,242,1)}.cbh-phone.cbh-green.cbh-hover .cbh-ph-img-circle1:hover{background-color:rgba(117,235,80,1)}.cbh-phone.cbh-green .cbh-ph-img-circle1{background-color:rgba(0,175,242,1)}.cbh-phone.cbh-green .cbh-ph-img-circle1{background-color:rgba(0,175,242,1)}.cbh-phone.cbh-gray.cbh-hover .cbh-ph-img-circle1{background-color:rgba(204,204,204,1)}.cbh-phone.cbh-gray .cbh-ph-img-circle1{background-color:rgba(117,235,80,1)}@-moz-keyframes cbh-circle-anim{0%{-moz-transform:rotate(0deg) scale(0.5) skew(1deg);opacity:.1;-moz-opacity:.1;-webkit-opacity:.1;-o-opacity:.1}30%{-moz-transform:rotate(0deg) scale(.7) skew(1deg);opacity:.5;-moz-opacity:.5;-webkit-opacity:.5;-o-opacity:.5}100%{-moz-transform:rotate(0deg) scale(1) skew(1deg);opacity:.6;-moz-opacity:.6;-webkit-opacity:.6;-o-opacity:.1}}@-webkit-keyframes cbh-circle-anim{0%{-webkit-transform:rotate(0deg) scale(0.5) skew(1deg);-webkit-opacity:.1}30%{-webkit-transform:rotate(0deg) scale(.7) skew(1deg);-webkit-opacity:.5}100%{-webkit-transform:rotate(0deg) scale(1) skew(1deg);-webkit-opacity:.1}}@-o-keyframes cbh-circle-anim{0%{-o-transform:rotate(0deg) kscale(0.5) skew(1deg);-o-opacity:.1}30%{-o-transform:rotate(0deg) scale(.7) skew(1deg);-o-opacity:.5}100%{-o-transform:rotate(0deg) scale(1) skew(1deg);-o-opacity:.1}}@keyframes cbh-circle-anim{0%{transform:rotate(0deg) scale(0.5) skew(1deg);opacity:.1}30%{transform:rotate(0deg) scale(.7) skew(1deg);opacity:.5}100%{transform:rotate(0deg) scale(1) skew(1deg);opacity:.1}}@-moz-keyframes cbh-circle-fill-anim{0%{-moz-transform:rotate(0deg) scale(0.7) skew(1deg);opacity:.2}50%{-moz-transform:rotate(0deg) -moz-scale(1) skew(1deg);opacity:.2}100%{-moz-transform:rotate(0deg) scale(0.7) skew(1deg);opacity:.2}}@-webkit-keyframes cbh-circle-fill-anim{0%{-webkit-transform:rotate(0deg) scale(0.7) skew(1deg);opacity:.2}50%{-webkit-transform:rotate(0deg) scale(1) skew(1deg);opacity:.2}100%{-webkit-transform:rotate(0deg) scale(0.7) skew(1deg);opacity:.2}}@-o-keyframes cbh-circle-fill-anim{0%{-o-transform:rotate(0deg) scale(0.7) skew(1deg);opacity:.2}50%{-o-transform:rotate(0deg) scale(1) skew(1deg);opacity:.2}100%{-o-transform:rotate(0deg) scale(0.7) skew(1deg);opacity:.2}}@keyframes cbh-circle-fill-anim{0%{transform:rotate(0deg) scale(0.7) skew(1deg);opacity:.2}50%{transform:rotate(0deg) scale(1) skew(1deg);opacity:.2}100%{transform:rotate(0deg) scale(0.7) skew(1deg);opacity:.2}}@keyframes cbh-circle-img-anim{0%{transform:rotate(0deg) scale(1) skew(1deg)}10%{transform:rotate(-25deg) scale(1) skew(1deg)}20%{transform:rotate(25deg) scale(1) skew(1deg)}30%{transform:rotate(-25deg) scale(1) skew(1deg)}40%{transform:rotate(25deg) scale(1) skew(1deg)}100%,50%{transform:rotate(0deg) scale(1) skew(1deg)}}@-moz-keyframes cbh-circle-img-anim{0%{transform:rotate(0deg) scale(1) skew(1deg)}10%{-moz-transform:rotate(-25deg) scale(1) skew(1deg)}20%{-moz-transform:rotate(25deg) scale(1) skew(1deg)}30%{-moz-transform:rotate(-25deg) scale(1) skew(1deg)}40%{-moz-transform:rotate(25deg) scale(1) skew(1deg)}100%,50%{-moz-transform:rotate(0deg) scale(1) skew(1deg)}}@-webkit-keyframes cbh-circle-img-anim{0%{-webkit-transform:rotate(0deg) scale(1) skew(1deg)}10%{-webkit-transform:rotate(-25deg) scale(1) skew(1deg)}20%{-webkit-transform:rotate(25deg) scale(1) skew(1deg)}30%{-webkit-transform:rotate(-25deg) scale(1) skew(1deg)}40%{-webkit-transform:rotate(25deg) scale(1) skew(1deg)}100%,50%{-webkit-transform:rotate(0deg) scale(1) skew(1deg)}}@-o-keyframes cbh-circle-img-anim{0%{-o-transform:rotate(0deg) scale(1) skew(1deg)}10%{-o-transform:rotate(-25deg) scale(1) skew(1deg)}20%{-o-transform:rotate(25deg) scale(1) skew(1deg)}30%{-o-transform:rotate(-25deg) scale(1) skew(1deg)}40%{-o-transform:rotate(25deg) scale(1) skew(1deg)}100%,50%{-o-transform:rotate(0deg) scale(1) skew(1deg)}}.cbh-ph-img-circle1 {}.cbh-phone.cbh-green .cbh-ph-circle {border-color: rgba(0, 175, 242, 1)}.cbh-phone.cbh-green .cbh-ph-circle-fill {background-color: rgba(0, 175, 242, 1);}.cbh-phone.cbh-green .cbh-ph-img-circle1 {background-color:rgba(0, 175, 242, 1);}body, div, dl, dt, dd, ul, ol, li, nav, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, button, textarea, p, blockquote, th, td, a {-webkit-transform-origin: center center;-ms-transform-origin: center center;-o-transform-origin: center center;transform-origin: center center;}@media screen and (max-width: " +
+                 breakpoint + "px) {#clbh_phone_div{display: none !important;}}", document.querySelector("head").appendChild(
+                     phoneStyles), document.querySelector(".phoneBtnContainer").addEventListener("click", showPopup)
+         }
+         
+         function addPopupStyle() {
+             var cont = document.createElement("style"),
+                 head = document.querySelector("head");
+             cont.innerHTML =
+                 '.ever-popup__body.ever-mobile{display:none}.ever-popup{position: fixed;top: 0;left: 0;width: 100%;height: 100%;background: rgba(0,0,0,.7);z-index: 111;display: none;overflow: auto;}.ever-popup__body{position: static;float: none;display: block;margin: 0 auto;width:auto}.ever-popup.show{display: block;align-items: center;}.ever-popup__inner{position: relative;margin: 0 auto;padding-top:35px}.ever-popup__close{width: 35px;height: 30px;position: absolute;cursor:pointer;top: 0;right: 0;z-index: 1;-webkit-transition: .3s; -moz-transition: .3s; -ms-transition: .3s; -o-transition: .3s; transition: .3s;}.ever-popup__close:after, .ever-popup__close:before {content: "";position: absolute;right: 0;top: 10px;width: 35px;height: 10px;background: #fff;transition: all 1s;}.ever-popup__close:after {-webkit-transform: rotate(-45deg);-ms-transform: rotate(-45deg);-o-transform: rotate(-45deg);transform: rotate(-45deg);}.ever-popup__close:before {-webkit-transform: rotate(45deg);-ms-transform: rotate(45deg);-o-transform: rotate(45deg);transform: rotate(45deg);}@media screen and (max-width: ' +
+                 breakpoint +
+                 "px){.ever-popup__body.ever-desktop{display:none}.ever-popup__body.ever-mobile{display:block}}", head
+                 .appendChild(cont)
+         }
+         
+         function createOverlay() {
+             var parent = document.createElement("div"),
+                 parentInner = document.createElement("div"),
+                 closeParent = document.createElement("div");
+             parent.classList.add("ever-popup"), parentInner.classList.add("ever-popup__inner"), closeParent.classList.add(
+                     "ever-popup__close"), parent.appendChild(parentInner), parentInner.appendChild(closeParent), document
+                 .body.appendChild(parent)
+         }
+         
+         function diFilling(obj, value) {
+             for (var i = 0; i < obj.length; i++) obj[i].innerHTML = value[i % 2]
+         }
+         
+         
+         
+         
+         var forms = document.querySelectorAll("form#buyForm");
+         for (var c = 0; c < forms.length; c++) {
+         
+             forms[c].classList.add("promo__form");
+         
+             forms[c].innerHTML = `<div class="promo__form--sale">
+                 <span>-50%</span><img src="img/sale.png" alt="sale">
+               </div>
+               <p class="attention">
+                 ภายใน<br><span class="date-0" data-format="dd.month.yyyy"></span>
+               </p>
+               <div class="promo__form--prices">
+                 <div class="price old">
+                   <span class="price-name">ราคาเก่า</span>
+                   <p class="price-value">
+                     <span class="x_price_previous"><x-oldprice>1980</x-oldprice></span><span class="x_currency"><x-currency>฿</x-currency> </span>
+                   </p>
+                 </div>
+                 <div class="line"></div>
+                 <div class="price new">
+                   <span class="price-name">ราคาใหม่</span>
+                   <p class="price-value">
+                     <span class="x_price_current"><x-newprice>990</x-newprice></span><span class="x_currency"><x-currency>฿</x-currency> </span>
+                   </p>
+                 </div>
+               </div>` + forms[c].innerHTML;
+         }
+      </script>
+   </body>
+</html>
